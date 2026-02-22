@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com"
+    />
+    <title>Codepad</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles/main.css" />
+  </head>
+  <body>
+    <!-- Title bar (drag region) -->
+    <div id="titlebar" data-tauri-drag-region style="padding-left: 12px">
+      <div id="titlebar-left" data-tauri-drag-region>
+        <!-- macOS-style window controls (left side) -->
+        <div id="window-controls">
+          <button
+            id="btn-close"
+            class="wc wc-close"
+            title="Close"
+            aria-label="Close"
+          ></button>
+          <button
+            id="btn-minimize"
+            class="wc wc-minimize"
+            title="Minimize"
+            aria-label="Minimize"
+          ></button>
+          <button
+            id="btn-maximize"
+            class="wc wc-maximize"
+            title="Maximize"
+            aria-label="Maximize"
+          ></button>
+        </div>
+        <div id="titlebar-title" data-tauri-drag-region>Codepad</div>
+      </div>
+      <div id="titlebar-controls">
+        <button id="btn-theme" title="Toggle theme" aria-label="Toggle theme">
+          <svg
+            id="icon-sun"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          <svg
+            id="icon-moon"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
+        <button
+          id="btn-font-decrease"
+          title="Decrease font size"
+          aria-label="Decrease font size"
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+        </button>
+        <button
+          id="btn-font-increase"
+          title="Increase font size"
+          aria-label="Increase font size"
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tab bar -->
+    <div id="tabbar">
+      <div id="tabs" role="tablist"></div>
+      <button id="btn-new-tab" title="New tab (Ctrl+T)" aria-label="New tab">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Main editor area -->
+    <main id="main">
+      <!-- Welcome screen -->
+      <div id="welcome">
+        <div id="welcome-inner">
+          <div id="welcome-logo">
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                width="40"
+                height="40"
+                rx="10"
+                fill="currentColor"
+                opacity="0.08"
+              />
+              <path
+                d="M12 15L7 20L12 25"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M28 15L33 20L28 25"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M22 11L18 29"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+          <h1>Codepad</h1>
+          <p>Lightweight. Fast. Beautiful.</p>
+          <div id="welcome-actions">
+            <button class="welcome-btn primary" id="btn-open-file">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                />
+                <polyline points="14,2 14,8 20,8" />
+              </svg>
+              Open File
+              <span class="shortcut">Ctrl+O</span>
+            </button>
+            <button class="welcome-btn" id="btn-new-file">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+              New File
+              <span class="shortcut">Ctrl+N</span>
+            </button>
+          </div>
+          <div id="welcome-shortcuts">
+            <span><kbd>Ctrl</kbd><kbd>S</kbd> Save</span>
+            <span><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>S</kbd> Save As</span>
+            <span><kbd>Ctrl</kbd><kbd>W</kbd> Close Tab</span>
+            <span><kbd>Ctrl</kbd><kbd>F</kbd> Find</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Editor container -->
+      <div id="editor-container"></div>
+    </main>
+
+    <!-- Status bar -->
+    <div id="statusbar">
+      <div id="status-left">
+        <span id="status-language">—</span>
+        <span id="status-encoding">UTF-8</span>
+      </div>
+      <div id="status-right">
+        <span id="status-cursor">Ln 1, Col 1</span>
+        <button
+          id="btn-wordwrap"
+          title="Toggle word wrap (Alt+Z)"
+          aria-label="Toggle word wrap"
+        >
+          Wrap: Off
+        </button>
+        <span id="status-indent">Spaces: 2</span>
+      </div>
+    </div>
+
+    <!-- Context menu -->
+    <div id="context-menu" class="hidden" role="menu">
+      <button role="menuitem" data-action="rename-tab">Rename</button>
+      <button role="menuitem" data-action="close-tab">Close Tab</button>
+      <button role="menuitem" data-action="close-others">Close Others</button>
+      <button role="menuitem" data-action="close-all">Close All</button>
+      <hr />
+      <button role="menuitem" data-action="copy-path">Copy File Path</button>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
