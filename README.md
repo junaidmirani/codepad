@@ -9,6 +9,9 @@ No bloat. Nothing you don't need.(vibecoded)
 
 Notepad is old & VS Code is heavy.
 Codepad lives in between — instant startup, syntax highlighting for the languages you actually use, and a UI that respects your screen.
+<img width="1366" height="722" alt="image" src="https://github.com/user-attachments/assets/247948bf-7e05-4901-b90d-e78e6a52ca57" />
+<img width="1366" height="723" alt="image" src="https://github.com/user-attachments/assets/42faf7d8-4550-49b5-92a9-92cd2afd6584" />
+
 
 **Feature set is intentionally minimal:**
 - Syntax highlighting (15+ languages)
