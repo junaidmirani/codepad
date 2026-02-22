@@ -1,7 +1,7 @@
 # Codepad
 
 A lightweight, fast, and beautiful code editor for reading and editing code files.
-No bloat. Nothing you don't need.
+No bloat. Nothing you don't need.(vibecoded)
 
 ---
 
