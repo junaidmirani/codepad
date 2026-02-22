@@ -7,7 +7,7 @@ No bloat. Nothing you don't need.(vibecoded)
 
 ## Philosophy
 
-Notepad opens in half a second. VS Code is beautiful but heavy.
+Notepad is old & VS Code is heavy.
 Codepad lives in between — instant startup, syntax highlighting for the languages you actually use, and a UI that respects your screen.
 
 **Feature set is intentionally minimal:**
